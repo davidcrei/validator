@@ -46,6 +46,7 @@ public  static  String VALOR_INCORRETO= " VALOR INCORRETO";
                   
                     if(cell.getColumnIndex() == 0) {
                     	idFuncionario = Long.parseLong(getCellValueAsString(cell, workbook).replace(".0",""));
+                    	
                     	if(funcionarioJaIncluido.get(idFuncionario) == null){
                     		listaEvento  =  new  ArrayList<>();
                     		funcionarioJaIncluido.put(idFuncionario, true);
@@ -71,7 +72,9 @@ public  static  String VALOR_INCORRETO= " VALOR INCORRETO";
                 if(evento.getCodigo() != null && evento.getCodigo() > 0 ) {
                 	listaEvento.add(evento);
                 }
-                mapFolha.put(idFuncionario, listaEvento);
+                if(mapFolha.get(idFuncionario) == null) {
+                	mapFolha.put(idFuncionario, listaEvento);
+                }
                 data.add(rowData.toArray(new String[0]));
                 }
             }
@@ -350,7 +353,6 @@ public  static  String VALOR_INCORRETO= " VALOR INCORRETO";
             	if (ponto.getId() != null && mapFolha.get(ponto.getId())!= null) {
             		
 	            		List<Evento> listaEvento =  mapFolha.get(ponto.getId());
-	            		
 	            		
 	            		
 	            		 for (Evento evento : listaEvento) {
